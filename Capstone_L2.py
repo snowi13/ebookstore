@@ -8,38 +8,38 @@ db = sqlite3.connect('ebookstore_db')
 
 cursor = db.cursor()
 
-cursor.execute('CREATE TABLE book(id INTEGER PRIMARY KEY, title TEXT, author TEXT, qty INTEGER)')
+cursor.execute('CREATE TABLE book(id INTEGER PRIMARY KEY, title TEXT, author TEXT, quantity INTEGER)')
 db.commit()
 
 id1 = 3001
 title1 = 'A Tale of Two Cities'
 author1 = 'Charles Dickens'
-qty1 = 30
+quantity1 = 30
 
 id2 = 3002
 title2 = "Harry Potter and the Philosopher's Stone"
 author2 = 'J.K. Rowling'
-qty2 = 40
+quantity2 = 40
 
 id3 = 3003
 title3 = "The Lion, the Witch and the Wardrobe"
 author3 = 'C.S. Lewis'
-qty3 = 25
+quantity3 = 25
 
 id4 = 3004
 title4 = "The Lord of the Rings"
 author4 = 'J.R.R. Tolkien'
-qty4 = 37
+quantity4 = 37
 
 id5 = 3005
 title5 = "Alice in Wonderland"
 author5 = 'Lewis Carroll'
-qty5 = 12
+quantity5 = 12
 
 
-book_record = [(id1, title1, author1, qty1),(id2, title2, author2, qty2),(id3, title3, author3, qty3),(id4, title4, author4, qty4),(id5, title5, author5, qty5)]
+book_record = [(id1, title1, author1, quantity1),(id2, title2, author2, quantity2),(id3, title3, author3, quantity3),(id4, title4, author4, quantity4),(id5, title5, author5, quantity5)]
 
-cursor.executemany('INSERT INTO book(id, title, author, qty) VALUES(?,?,?,?)', book_record)
+cursor.executemany('INSERT INTO book(id, title, author, quantity) VALUES(?,?,?,?)', book_record)
 
 db.commit()
 
@@ -60,7 +60,7 @@ while True:
         
         title = ''
         author = ''
-        qty = ''
+        quantity = ''
      
         while True: #check input against existing ids, if ID exists or ivalid input, re-prompt until valid. 
                     #when valid, populate fields with above empty variables to be filled with data in subsequent inputs
@@ -68,7 +68,7 @@ while True:
 
                 id = int(input("\nPlease enter a new id:\n"))
                 time.sleep(.5)
-                cursor.execute('INSERT INTO book(id, title, author, qty) VALUES(?,?,?,?)', (id, title, author, qty))
+                cursor.execute('INSERT INTO book(id, title, author, quantity) VALUES(?,?,?,?)', (id, title, author, quantity))
                 db.commit()
 
             except sqlite3.IntegrityError as error:
@@ -105,8 +105,8 @@ while True:
 
             try:
 
-                qty = int(input("\nPlease enter the quantity:\n"))
-                cursor.execute('UPDATE book SET qty = ? WHERE ID = ?', (qty, id))
+                quantity = int(input("\nPlease enter the quantity:\n"))
+                cursor.execute('UPDATE book SET quantity = ? WHERE ID = ?', (quantity, id))
                 db.commit()
 
             except ValueError:
@@ -195,7 +195,7 @@ z. exit sub-menu
 
                     try:
 
-                        qty = int(input('\nWhat would you like to update the quantity to:\n'))
+                        quantity = int(input('\nWhat would you like to update the quantity to:\n'))
                         time.sleep(.5)
 
                     except ValueError:
@@ -208,7 +208,7 @@ z. exit sub-menu
 
                         break
 
-                cursor.execute('UPDATE book SET qty = ? WHERE id = ?', (qty, id))
+                cursor.execute('UPDATE book SET quantity = ? WHERE id = ?', (quantity, id))
                 db.commit()
                 cursor.execute('SELECT * FROM book WHERE id = ?', (id,))
                 
