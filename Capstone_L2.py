@@ -8,40 +8,40 @@ db = sqlite3.connect('ebookstore_db')
 
 cursor = db.cursor()
 
-cursor.execute('CREATE TABLE book(id INTEGER PRIMARY KEY, title TEXT, author TEXT, qty INTEGER)')
-db.commit()
+# cursor.execute('CREATE TABLE book(id INTEGER PRIMARY KEY, title TEXT, author TEXT, qty INTEGER)')
+# db.commit()
 
-id1 = 3001
-title1 = 'A Tale of Two Cities'
-author1 = 'Charles Dickens'
-qty1 = 30
+# id1 = 3001
+# title1 = 'A Tale of Two Cities'
+# author1 = 'Charles Dickens'
+# qty1 = 30
 
-id2 = 3002
-title2 = "Harry Potter and the Philosopher's Stone"
-author2 = 'J.K. Rowling'
-qty2 = 40
+# id2 = 3002
+# title2 = "Harry Potter and the Philosopher's Stone"
+# author2 = 'J.K. Rowling'
+# qty2 = 40
 
-id3 = 3003
-title3 = "The Lion, the Witch and the Wardrobe"
-author3 = 'C.S. Lewis'
-qty3 = 25
+# id3 = 3003
+# title3 = "The Lion, the Witch and the Wardrobe"
+# author3 = 'C.S. Lewis'
+# qty3 = 25
 
-id4 = 3004
-title4 = "The Lord of the Rings"
-author4 = 'J.R.R. Tolkien'
-qty4 = 37
+# id4 = 3004
+# title4 = "The Lord of the Rings"
+# author4 = 'J.R.R. Tolkien'
+# qty4 = 37
 
-id5 = 3005
-title5 = "Alice in Wonderland"
-author5 = 'Lewis Carroll'
-qty5 = 12
+# id5 = 3005
+# title5 = "Alice in Wonderland"
+# author5 = 'Lewis Carroll'
+# qty5 = 12
 
 
-book_record = [(id1, title1, author1, qty1),(id2, title2, author2, qty2),(id3, title3, author3, qty3),(id4, title4, author4, qty4),(id5, title5, author5, qty5)]
+# book_record = [(id1, title1, author1, qty1),(id2, title2, author2, qty2),(id3, title3, author3, qty3),(id4, title4, author4, qty4),(id5, title5, author5, qty5)]
 
-cursor.executemany('INSERT INTO book(id, title, author, qty) VALUES(?,?,?,?)', book_record)
+# cursor.executemany('INSERT INTO book(id, title, author, qty) VALUES(?,?,?,?)', book_record)
 
-db.commit()
+# db.commit()
 
 while True:
 
@@ -57,56 +57,15 @@ while True:
     time.sleep(.5)
     
     if menu == '1': #enter books
+
+        while True:
         
-        title = ''
-        author = ''
-        qty = ''
-     
-        while True: #check input against existing ids, if ID exists or ivalid input, re-prompt until valid. 
-                    #when valid, populate fields with above empty variables to be filled with data in subsequent inputs
             try:
-
-                id = int(input("\nPlease enter a new id:\n"))
-                time.sleep(.5)
-                cursor.execute('INSERT INTO book(id, title, author, qty) VALUES(?,?,?,?)', (id, title, author, qty))
-                db.commit()
-
-            except sqlite3.IntegrityError as error:
-
-                print('\n')
-                print(error)
-                print('ID already exists.')
-                time.sleep(.5)
-                continue
-            
-            except ValueError:
-
-                print("\nYou have entered an invalid input. Please try again.")
-                time.sleep(.5)
-                continue
-
-            else:
-
-                break
-
-        time.sleep(.5)  
-
-        title = input("\nPlease enter the title:\n").lower()
-        cursor.execute('UPDATE book SET title = ? WHERE ID = ?', (title, id))
-        db.commit()
-        time.sleep(.5)
-        
-        author = input("\nPlease enter the author:\n").lower()
-        cursor.execute('UPDATE book SET author = ? WHERE ID = ?', (author, id))
-        db.commit()
-        time.sleep(.5)
-        
-        while True: #prompt until valid input
-
-            try:
-
+                
+                title = input("\nPlease enter the title:\n").lower()
+                author = input("\nPlease enter the author:\n").lower()
                 qty = int(input("\nPlease enter the quantity:\n"))
-                cursor.execute('UPDATE book SET qty = ? WHERE ID = ?', (qty, id))
+                cursor.execute('INSERT INTO book(title, author, qty) VALUES(?,?,?)', (title, author, qty))
                 db.commit()
 
             except ValueError:
@@ -117,8 +76,8 @@ while True:
 
             else:
 
-                break
-
+                break  
+        
         time.sleep(.5)
         
     elif menu == '2': #update books
