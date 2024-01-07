@@ -57,56 +57,15 @@ while True:
     time.sleep(.5)
     
     if menu == '1': #enter books
+
+        while True:
         
-        title = ''
-        author = ''
-        qty = ''
-     
-        while True: #check input against existing ids, if ID exists or ivalid input, re-prompt until valid. 
-                    #when valid, populate fields with above empty variables to be filled with data in subsequent inputs
             try:
-
-                id = int(input("\nPlease enter a new id:\n"))
-                time.sleep(.5)
-                cursor.execute('INSERT INTO book(id, title, author, qty) VALUES(?,?,?,?)', (id, title, author, qty))
-                db.commit()
-
-            except sqlite3.IntegrityError as error:
-
-                print('\n')
-                print(error)
-                print('ID already exists.')
-                time.sleep(.5)
-                continue
-            
-            except ValueError:
-
-                print("\nYou have entered an invalid input. Please try again.")
-                time.sleep(.5)
-                continue
-
-            else:
-
-                break
-
-        time.sleep(.5)  
-
-        title = input("\nPlease enter the title:\n").lower()
-        cursor.execute('UPDATE book SET title = ? WHERE ID = ?', (title, id))
-        db.commit()
-        time.sleep(.5)
-        
-        author = input("\nPlease enter the author:\n").lower()
-        cursor.execute('UPDATE book SET author = ? WHERE ID = ?', (author, id))
-        db.commit()
-        time.sleep(.5)
-        
-        while True: #prompt until valid input
-
-            try:
-
+                
+                title = input("\nPlease enter the title:\n").lower()
+                author = input("\nPlease enter the author:\n").lower()
                 qty = int(input("\nPlease enter the quantity:\n"))
-                cursor.execute('UPDATE book SET qty = ? WHERE ID = ?', (qty, id))
+                cursor.execute('INSERT INTO book(title, author, qty) VALUES(?,?,?)', (title, author, qty))
                 db.commit()
 
             except ValueError:
@@ -117,8 +76,8 @@ while True:
 
             else:
 
-                break
-
+                break  
+        
         time.sleep(.5)
         
     elif menu == '2': #update books
