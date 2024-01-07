@@ -76,8 +76,8 @@ while True:
 
             else:
 
-                break
-
+                break  
+        
         time.sleep(.5)
         
     elif menu == '2': #update books
